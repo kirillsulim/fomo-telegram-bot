@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import List
 
 from yaml import (
     load as yaml_load,
@@ -11,6 +12,9 @@ from marshmallow_dataclass import class_schema
 @dataclass
 class BotConfig:
     token: str
+    forward_channel_id: str
+    allowed_source_ids: List[str]
+    admin_users: List[str]
 
 
 @dataclass
