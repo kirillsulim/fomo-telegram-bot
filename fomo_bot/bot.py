@@ -1,4 +1,5 @@
 import logging
+import os
 
 from telegram import Update
 from telegram.ext import Updater, CallbackContext, MessageHandler, Filters
@@ -7,8 +8,10 @@ from fomo_bot.config import BotConfig
 
 
 class FomoBot:
+    TOKEN_ENV = "FOMO_BOT_TOKEN"
+
     def __init__(self, config: BotConfig):
-        self.token = config.token
+        self.token = FomoBot.resolve_token(config.token)
         self.forward_channel_id = config.forward_channel_id
         self.allowed_source_ids = config.allowed_source_ids
         self.admin_users = config.admin_users
@@ -62,3 +65,11 @@ class FomoBot:
                 from_chat_id=chat_id,
                 message_id=message_id,
             )
+
+    @staticmethod
+    def resolve_token(config_value: str) -> str:
+        env_token = os.environ.get(FomoBot.TOKEN_ENV)
+        if env_token:
+            return env_token
+        else:
+            return config_value
