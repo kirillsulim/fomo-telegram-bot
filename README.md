@@ -149,3 +149,16 @@ Here is ansible playbook example
 
 For this example to work you must put `config.yaml` in playbook directory.
 Please note that in this playbook bot token is provided at playbook run to avoid storing secret data in playbook repository.
+
+
+## Chat bootstrap
+
+0. Deploy your bot.
+1. Add bot to channel disignated to forward messages as administrator.
+2. Write test message. It seems that you cannot get username or user id in channel so you have to extract channel id
+   from  logs.
+3. Add channel id to configuration.
+4. Add bot to all groups you want to forward messages from.
+5. Post "/admin" command to all groups.
+6. Add chat ids to configuration.
+7. Redeploy your bot with new configuration.
