@@ -33,8 +33,8 @@ class FomoBot:
 
     def handle_message(self, update: Update, context: CallbackContext) -> None:
         chat_id = update.effective_chat.id
-        username = update.effective_user.username
-        if str(chat_id) not in self.allowed_source_ids:
+        username = update.effective_user.username if update.effective_user else None
+        if str(chat_id) not in self.allowed_source_ids and username not in self.admin_users:
             logging.warning(f"Illegal chat id {chat_id}")
             return
 
